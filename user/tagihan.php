@@ -34,6 +34,28 @@ WHERE penghuni_id='$user_id'
 ORDER BY id DESC
 LIMIT 1
 "));
+
+$denda = 0;
+$total_final = 0;
+
+if($tagihan){
+    $today = strtotime(date("Y-m-d"));
+    $jatuh_tempo = strtotime($tagihan['jatuh_tempo']);
+
+    if(
+        $today > $jatuh_tempo &&
+        $tagihan['status'] != 'lunas'
+    ){
+        $selisih_bulan = floor(
+            ($today - $jatuh_tempo) / (30 * 24 * 60 * 60)
+        );
+
+        $denda = $selisih_bulan * 50000;
+    }
+
+    $total_final = $tagihan['total_tagihan'] + $denda;
+}
+
 ?>
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -56,60 +78,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             background:#f5f7fb;
         }
 
-        .navbar{
-            width:100%;
-            background:white;
-            padding:18px 40px;
-            display:grid;
-            grid-template-columns:180px 1fr 180px;
-            align-items:center;
-            box-shadow:0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .logo{
-            font-size:22px;
-            font-weight:bold;
-            color:#2563eb;
-        }
-
-        .menu{
-            display:flex;
-            justify-content:center;
-            gap:18px;
-        }
-
-        .menu a{
-            text-decoration:none;
-            color:#444;
-            font-weight:500;
-            padding:10px 16px;
-            border-radius:12px;
-            position:relative;
-            transition:all 0.25s ease;
-        }
-
-        .menu a:hover{
-            background:#f3f4f6;
-            color:#2563eb;
-        }
-
-        .menu a.active{
-            
-            color:#2563eb;
-            font-weight:600;
-        }
-
-        .menu a.active::after{
-            content:"";
-            position:absolute;
-            bottom:-10px;
-            left:50%;
-            transform:translateX(-50%);
-            width:70%;
-            height:3px;
-            background:#2563eb;
-            border-radius:10px;
-        }
+        
 
         .container{
             padding:35px;
@@ -205,21 +174,38 @@ $current_page = basename($_SERVER['PHP_SELF']);
             color:gray;
             padding:50px;
         }
+
+        .payment-summary{
+            margin-top:20px;
+            padding:15px;
+            background:#f8fafc;
+            border-radius:12px;
+        }
+
+        .row-line{
+            display:flex;
+            justify-content:space-between;
+            margin:12px 0;
+            font-size:16px;
+        }
+
+        .payment-summary hr{
+            border:none;
+            border-top:1px dashed #cbd5e1;
+            margin:14px 0;
+        }
+
+        .total-line{
+            font-weight:bold;
+            font-size:20px;
+            color:#2563eb;
+        }
+        
     </style>
 </head>
 <body>
 
-<div class="navbar">
-    <div class="logo">KOS APP</div>
-
-    <div class="menu">
-        <a href="dashboard.php">Beranda</a>
-        <a href="tagihan.php" class="active">Tagihan</a>
-        <a href="riwayat.php">Riwayat</a>
-        <a href="notifikasi.php">Notifikasi</a>
-        <a href="akun.php">Akun</a>
-    </div>
-</div>
+<?php include "../includes/user_navbar.php"; ?>
 
 <div class="container">
     <div class="title-box">
@@ -233,14 +219,34 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="card">
             <h3>Tagihan Aktif</h3>
 
-            <div class="info"><b>Bulan:</b> <?= $tagihan['bulan'] ?></div>
-            <div class="info"><b>Total:</b> Rp <?= number_format($tagihan['total_tagihan']) ?></div>
+            <div class="info">
+                <b>Bulan:</b> <?= $tagihan['bulan'] ?>
+            </div>
 
             <div class="info">
                 <b>Status:</b>
                 <span class="status <?= $tagihan['status'] ?>">
                     <?= $tagihan['status'] ?>
                 </span>
+            </div>
+
+            <div class="payment-summary">
+                <div class="row-line">
+                    <span>Tagihan</span>
+                    <span>Rp <?= number_format($tagihan['total_tagihan']) ?></span>
+                </div>
+
+                <div class="row-line">
+                    <span>Denda</span>
+                    <span>Rp <?= number_format($denda) ?></span>
+                </div>
+
+                <hr>
+
+                <div class="row-line total-line">
+                    <span>Total</span>
+                    <span>Rp <?= number_format($total_final) ?></span>
+                </div>
             </div>
         </div>
 
