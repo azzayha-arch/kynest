@@ -29,6 +29,12 @@ LIMIT 1
 "));
 
 $total_bayar = $total['total_bayar'] ?? 0;
+$statusText = [
+    'belum_bayar' => 'Belum Bayar',
+    'menunggu_verifikasi' => 'Menunggu Verifikasi',
+    'lunas' => 'Lunas',
+    'ditolak' => 'Ditolak'
+];
 ?>
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -214,18 +220,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <div class="card">
             <p>Status</p>
-            <h2><?= $tagihan['status'] ?? '-' ?></h2>
+            <h2><?= $statusText[$tagihan['status'] ?? 'belum_bayar'] ?? '-' ?></h2>
         </div>
     </div>
 
     <div class="quick-actions">
-        <div class="action-card blue">
+        <a href="tagihan.php" class="action-card blue">
             <i class="bi bi-wallet2"></i>
             <div class="action-text">
                 <b>Bayar Sekarang</b>
                 <small>Lakukan pembayaran tagihan</small>
             </div>
-        </div>
+        </a>
 
         <a href="perpanjang.php" class="action-card green">
             <i class="bi bi-arrow-repeat"></i>
@@ -235,13 +241,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
         </a>
 
-        <div class="action-card red">
+        <a href="keluar.php" class="action-card red">
             <i class="bi bi-box-arrow-right"></i>
             <div class="action-text">
                 <b>Keluar dari Kos</b>
                 <small>Ajukan keluar dari kos</small>
             </div>
-        </div>
+        </a>
     </div>
 
     <div class="bottom">

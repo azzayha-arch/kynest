@@ -193,8 +193,8 @@ if(isset($_GET['hapus'])){
             <input name="nomor_kamar" placeholder="Nomor Kamar" required>
 
             <select name="tipe">
-                <option>AC</option>
-                <option>Non AC</option>
+                <option>kecil</option>
+                <option>besar</option>
             </select>
 
             <input name="harga" placeholder="Harga" required>

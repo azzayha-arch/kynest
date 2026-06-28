@@ -19,7 +19,7 @@ if(isset($_POST['upload_bukti'])){
             UPDATE pembayaran 
             SET bukti_bayar='$nama_file',
                 jumlah_bayar=total_tagihan,
-                status='pending'
+                status='menunggu_verifikasi'
             WHERE id='$id_pembayaran'
         ");
     }
@@ -121,7 +121,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
             font-weight:bold;
         }
 
-        .pending{
+        .belum_bayar{
+            background:#e5e7eb;
+            color:#374151;
+        }
+
+        .menunggu_verifikasi{
             background:#fef3c7;
             color:#b45309;
         }
@@ -223,12 +228,21 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <b>Bulan:</b> <?= $tagihan['bulan'] ?>
             </div>
 
-            <div class="info">
-                <b>Status:</b>
-                <span class="status <?= $tagihan['status'] ?>">
-                    <?= $tagihan['status'] ?>
-                </span>
-            </div>
+            <?php
+                $statusText = [
+                    'belum_bayar' => 'Belum Bayar',
+                    'menunggu_verifikasi' => 'Menunggu Verifikasi',
+                    'lunas' => 'Lunas',
+                    'ditolak' => 'Ditolak'
+                ];
+                ?>
+
+                <div class="info">
+                    <b>Status:</b>
+                    <span class="status <?= $tagihan['status'] ?>">
+                        <?= $statusText[$tagihan['status']] ?>
+                    </span>
+                </div>
 
             <div class="payment-summary">
                 <div class="row-line">
@@ -253,11 +267,28 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="card">
             <h3>Upload Bukti Pembayaran</h3>
 
-            <form method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="id_pembayaran" value="<?= $tagihan['id'] ?>">
-                <input type="file" name="bukti" required>
-                <button name="upload_bukti">Kirim Pembayaran</button>
-            </form>
+            <?php if($tagihan['status']=='belum_bayar' || $tagihan['status']=='ditolak'){ ?>
+
+                <form method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id_pembayaran" value="<?= $tagihan['id'] ?>">
+                    <input type="file" name="bukti" required>
+                    <button name="upload_bukti">Kirim Pembayaran</button>
+                </form>
+
+            <?php } elseif($tagihan['status']=='menunggu_verifikasi'){ ?>
+
+                <p style="color:orange;font-weight:bold;">
+                    Bukti pembayaran sudah dikirim.<br>
+                    Menunggu verifikasi admin.
+                </p>
+
+            <?php } else { ?>
+
+                <p style="color:green;font-weight:bold;">
+                    Pembayaran telah diverifikasi.
+                </p>
+
+            <?php } ?>
         </div>
 
     </div>

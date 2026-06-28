@@ -3,9 +3,83 @@ include "../auth/auth_check.php";
 $conn = mysqli_connect("localhost","root","","db_pembayaran_kos");
 
 /* APPROVE */
+/* APPROVE + AUTO BUAT TAGIHAN */
 if(isset($_GET['approve'])){
     $id = (int)$_GET['approve'];
-    mysqli_query($conn,"UPDATE penghuni SET status='aktif' WHERE id=$id");
+
+    // Ambil data penghuni
+    $penghuni = mysqli_fetch_assoc(
+        mysqli_query($conn,"
+            SELECT * FROM penghuni
+            WHERE id=$id
+        ")
+    );
+
+    $nomor_kamar = $penghuni['nomor_kamar'];
+
+    // Ambil data kamar
+    $kamar = mysqli_fetch_assoc(
+        mysqli_query($conn,"
+            SELECT * FROM kamar
+            WHERE nomor_kamar='$nomor_kamar'
+        ")
+    );
+
+    $harga = $kamar['harga'];
+
+    // Ubah status penghuni jadi aktif
+    mysqli_query($conn,"
+        UPDATE penghuni
+        SET status='aktif'
+        WHERE id=$id
+    ");
+
+    // Ubah status kamar jadi terisi
+    mysqli_query($conn,"
+        UPDATE kamar
+        SET status='terisi'
+        WHERE nomor_kamar='$nomor_kamar'
+    ");
+
+    // Bulan Indonesia
+    $bulan_list = [
+        1=>"Januari",2=>"Februari",3=>"Maret",4=>"April",
+        5=>"Mei",6=>"Juni",7=>"Juli",8=>"Agustus",
+        9=>"September",10=>"Oktober",11=>"November",12=>"Desember"
+    ];
+
+    $bulan = $bulan_list[(int)date('n')];
+    $tanggal = date('Y-m-d');
+    $jatuh_tempo = date('Y-m-d', strtotime('+1 month'));
+
+    // Insert tagihan pertama
+    $sql = "
+INSERT INTO pembayaran(
+    penghuni_id,
+    bulan,
+    total_tagihan,
+    jumlah_bayar,
+    bukti_bayar,
+    status,
+    tanggal,
+    jatuh_tempo,
+    denda
+) VALUES (
+    '$id',
+    '$bulan',
+    '$harga',
+    0,
+    '',
+    'belum_bayar',
+    '$tanggal',
+    '$jatuh_tempo',
+    0
+)";
+
+if(!mysqli_query($conn, $sql)){
+    die(mysqli_error($conn));
+}
+
     header("Location: penghuni.php");
     exit;
 }
