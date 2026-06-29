@@ -67,145 +67,228 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial;
-        }
 
-        body{
-            background:#f5f7fb;
-        }
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Segoe UI',sans-serif;
+    }
 
-        
+    body{background:#f4f7fb;}
+    .container{padding:35px;}
 
-        .container{
-            padding:35px;
-        }
+    .title-box{
+        background:#fff;
+        border-radius:20px;
+        padding:25px;
+        box-shadow:0 8px 25px rgba(0,0,0,.05);
+    }
 
-        .title-box{
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            box-shadow:0 3px 12px rgba(0,0,0,0.05);
-        }
+    .title-box h2{color:#1e3a8a;}
+    .title-box p{
+        color:#64748b;
+        margin-top:8px;
+    }
 
-        .content{
-            display:grid;
-            grid-template-columns:1fr 1fr;
-            gap:20px;
-            margin-top:25px;
-        }
+    .content{
+        display:grid;
+        grid-template-columns:380px 1fr;
+        gap:25px;
+        margin-top:25px;
+    }
 
-        .card{
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            box-shadow:0 3px 12px rgba(0,0,0,0.05);
-        }
+    .card{
+        background:#fff;
+        border-radius:20px;
+        padding:25px;
+        box-shadow:0 8px 25px rgba(0,0,0,.05);
+    }
 
-        .card h3{
-            margin-bottom:20px;
-        }
+    .card h3{
+        color:#1e3a8a;
+        margin-bottom:20px;
+    }
 
-        .info{
-            margin-bottom:15px;
-        }
+    .info{margin-bottom:15px;}
 
-        .status{
-            display:inline-block;
-            padding:8px 14px;
-            border-radius:12px;
-            font-size:14px;
-            font-weight:bold;
-        }
+    .status{
+        display:inline-block;
+        padding:8px 16px;
+        border-radius:30px;
+        font-size:13px;
+        font-weight:bold;
+    }
 
-        .belum_bayar{
-            background:#e5e7eb;
-            color:#374151;
-        }
+    .belum_bayar{
+        background:#e5e7eb;
+        color:#374151;
+    }
 
-        .menunggu_verifikasi{
-            background:#fef3c7;
-            color:#b45309;
-        }
+    .menunggu_verifikasi{
+        background:#fff7ed;
+        color:#b45309;
+    }
 
-        .lunas{
-            background:#dcfce7;
-            color:#15803d;
-        }
+    .lunas{
+        background:#dcfce7;
+        color:#15803d;
+    }
 
-        .ditolak{
-            background:#fee2e2;
-            color:#b91c1c;
-        }
+    .ditolak{
+        background:#fee2e2;
+        color:#dc2626;
+    }
 
-        input[type=file]{
-            width:100%;
-            margin:15px 0;
-            padding:10px;
-        }
+    .payment-summary{
+        margin-top:25px;
+        background:#f8fafc;
+        border-radius:15px;
+        padding:18px;
+    }
 
-        button{
-            width:100%;
-            background:#2563eb;
-            color:white;
-            border:none;
-            padding:14px;
-            border-radius:12px;
-            cursor:pointer;
-            font-weight:bold;
-        }
+    .row-line{
+        display:flex;
+        justify-content:space-between;
+        margin:12px 0;
+    }
 
-        button:hover{
-            background:#1d4ed8;
-        }
+    .total-line{
+        font-size:22px;
+        font-weight:bold;
+        color:#2563eb;
+    }
 
-        .payment-box{
-            margin-top:25px;
-            background:white;
-            padding:25px;
-            border-radius:18px;
-            box-shadow:0 3px 12px rgba(0,0,0,0.05);
-        }
+    .payment-summary hr{
+        border:none;
+        border-top:1px dashed #cbd5e1;
+        margin:15px 0;
+    }
 
-        .payment-box p{
-            margin:10px 0;
-        }
+    .upload-box{
+        margin-top:30px;
+        border-top:1px solid #e5e7eb;
+        padding-top:25px;
+    }
 
-        .empty{
-            text-align:center;
-            color:gray;
-            padding:50px;
-        }
+    .upload-box h4{
+        margin-bottom:15px;
+    }
 
-        .payment-summary{
-            margin-top:20px;
-            padding:15px;
-            background:#f8fafc;
-            border-radius:12px;
-        }
+    input[type=file]{
+        width:100%;
+        padding:12px;
+        border:2px dashed #cbd5e1;
+        border-radius:12px;
+        margin:15px 0;
+    }
 
-        .row-line{
-            display:flex;
-            justify-content:space-between;
-            margin:12px 0;
-            font-size:16px;
-        }
+    button{
+        border:none;
+        cursor:pointer;
+    }
 
-        .payment-summary hr{
-            border:none;
-            border-top:1px dashed #cbd5e1;
-            margin:14px 0;
-        }
+    .upload-btn{
+        width:100%;
+        background:#2563eb;
+        color:#fff;
+        padding:15px;
+        border-radius:12px;
+        font-weight:bold;
+        transition:.3s;
+    }
 
-        .total-line{
-            font-weight:bold;
-            font-size:20px;
-            color:#2563eb;
-        }
-        
+    .upload-btn:hover{
+        background:#1d4ed8;
+    }
+
+    .accordion-item{
+        margin-bottom:15px;
+    }
+
+    .accordion-btn{
+
+        width:100%;
+        padding:16px 18px;
+        background:#f8fafc;
+        border:1px solid #e5e7eb;
+        border-radius:12px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        cursor:pointer;
+        font-size:16px;
+        font-weight:600;
+        color:#1e293b;
+    }
+
+    .accordion-btn:hover{
+        background:#eef2ff;
+    }
+
+    .accordion-content{
+        display:none;
+        margin-top:15px;
+    }
+
+    .payment-card{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        background:#fff;
+        border:1px solid #e5e7eb;
+        border-radius:14px;
+        padding:15px;
+        margin-bottom:12px;
+    }
+
+    .payment-card h5{
+        color:#1e3a8a;
+    }
+
+    .payment-card small{
+        color:#64748b;
+    }
+
+    .payment-card p{
+        margin-top:5px;
+        font-weight:bold;
+        font-size:18px;
+    }
+
+    .copy-btn{
+        background:#2563eb;
+        color:#fff;
+        padding:10px 18px;
+        border-radius:8px;
+    }
+
+    .copy-btn:hover{
+        background:#1d4ed8;
+    }
+
+    .success-box{
+        background:#dcfce7;
+        color:#15803d;
+        padding:18px;
+        border-radius:12px;
+        font-weight:bold;
+    }
+
+    .warning-box{
+        background:#fff7ed;
+        color:#b45309;
+        padding:18px;
+        border-radius:12px;
+        font-weight:bold;
+    }
+
+    .empty{
+        text-align:center;
+        padding:60px;
+        color:#64748b;
+    }
+
     </style>
 </head>
 <body>
@@ -264,57 +347,324 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
 
-        <div class="card">
-            <h3>Upload Bukti Pembayaran</h3>
+<div class="card">
 
-            <?php if($tagihan['status']=='belum_bayar' || $tagihan['status']=='ditolak'){ ?>
+    <h3><i class="bi bi-credit-card"></i> Pembayaran Tagihan</h3>
 
-                <form method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id_pembayaran" value="<?= $tagihan['id'] ?>">
-                    <input type="file" name="bukti" required>
-                    <button name="upload_bukti">Kirim Pembayaran</button>
-                </form>
+    <p style="color:#64748b;margin-bottom:20px;">
+        Pilih metode pembayaran lalu lakukan transfer sesuai nominal tagihan.
+    </p>
 
-            <?php } elseif($tagihan['status']=='menunggu_verifikasi'){ ?>
+    <!-- ================= TRANSFER BANK ================= -->
 
-                <p style="color:orange;font-weight:bold;">
-                    Bukti pembayaran sudah dikirim.<br>
-                    Menunggu verifikasi admin.
-                </p>
+    <div class="accordion-item">
 
-            <?php } else { ?>
+        <button type="button"
+                class="accordion-btn"
+                onclick="toggleAccordion('bank')">
 
-                <p style="color:green;font-weight:bold;">
-                    Pembayaran telah diverifikasi.
-                </p>
+            <span>
+                <i class="bi bi-bank"></i>
+                Transfer Bank
+            </span>
 
-            <?php } ?>
+            <i class="bi bi-chevron-down"></i>
+
+        </button>
+
+        <div id="bank" class="accordion-content">
+
+            <div class="payment-card">
+
+                <div>
+
+                    <h5>BCA</h5>
+
+                    <small>A/N KOS APP</small>
+
+                    <p id="bca">1234567890</p>
+
+                </div>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyText('1234567890')">
+
+                    <i class="bi bi-copy"></i>
+                    Salin
+
+                </button>
+
+            </div>
+
+            <div class="payment-card">
+
+                <div>
+
+                    <h5>Mandiri</h5>
+
+                    <small>A/N KOS APP</small>
+
+                    <p>9876543210</p>
+
+                </div>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyText('9876543210')">
+
+                    <i class="bi bi-copy"></i>
+                    Salin
+
+                </button>
+
+            </div>
+
         </div>
 
     </div>
 
-    <div class="payment-box">
-        <h3>Metode Pembayaran</h3>
+    <!-- ================= EWALLET ================= -->
 
-        <br>
-        <b>Transfer Bank</b>
-        <p>BCA : 1234567890</p>
-        <p>Mandiri : 9876543210</p>
-        <p>A/N : KOS APP</p>
+    <div class="accordion-item">
 
-        <br>
-        <b>E-Wallet</b>
-        <p>Dana : 08123456789</p>
-        <p>OVO : 08123456789</p>
-        <p>GoPay : 08123456789</p>
+        <button type="button"
+                class="accordion-btn"
+                onclick="toggleAccordion('wallet')">
+
+            <span>
+                <i class="bi bi-phone"></i>
+                E-Wallet
+            </span>
+
+            <i class="bi bi-chevron-down"></i>
+
+        </button>
+
+        <div id="wallet" class="accordion-content">
+
+            <div class="payment-card">
+
+                <div>
+
+                    <h5>DANA</h5>
+
+                    <small>Atas Nama KOS APP</small>
+
+                    <p>08123456789</p>
+
+                </div>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyText('08123456789')">
+
+                    <i class="bi bi-copy"></i>
+                    Salin
+
+                </button>
+
+            </div>
+
+            <div class="payment-card">
+
+                <div>
+
+                    <h5>OVO</h5>
+
+                    <small>Atas Nama KOS APP</small>
+
+                    <p>08123456789</p>
+
+                </div>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyText('08123456789')">
+
+                    <i class="bi bi-copy"></i>
+                    Salin
+
+                </button>
+
+            </div>
+
+            <div class="payment-card">
+
+                <div>
+
+                    <h5>GoPay</h5>
+
+                    <small>Atas Nama KOS APP</small>
+
+                    <p>08123456789</p>
+
+                </div>
+
+                <button
+                    class="copy-btn"
+                    onclick="copyText('08123456789')">
+
+                    <i class="bi bi-copy"></i>
+                    Salin
+
+                </button>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <?php } else { ?>
-        <div class="empty">
-            <h3>Belum ada tagihan</h3>
-        </div>
-    <?php } ?>
+    <!-- ================= UPLOAD ================= -->
+
+    <div class="upload-box">
+
+        <h4>
+            <i class="bi bi-cloud-upload"></i>
+            Upload Bukti Pembayaran
+        </h4>
+
+        <?php if($tagihan['status']=='belum_bayar' || $tagihan['status']=='ditolak'){ ?>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                <input
+                    type="hidden"
+                    name="id_pembayaran"
+                    value="<?= $tagihan['id'] ?>">
+
+                <input
+                    type="file"
+                    name="bukti"
+                    required>
+
+                <button
+                    type="submit"
+                    name="upload_bukti"
+                    class="upload-btn">
+
+                    <i class="bi bi-send"></i>
+                    Kirim Bukti Pembayaran
+
+                </button>
+
+            </form>
+
+        <?php } elseif($tagihan['status']=='menunggu_verifikasi'){ ?>
+
+            <div class="warning-box">
+
+                <i class="bi bi-hourglass-split"></i>
+
+                Bukti pembayaran sudah dikirim.
+
+                <br><br>
+
+                Menunggu verifikasi admin.
+
+            </div>
+
+        <?php } else { ?>
+
+            <div class="success-box">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                Pembayaran berhasil diverifikasi.
+
+            </div>
+
+        <?php } ?>
+
+    </div>
+
 </div>
+
+<?php } else { ?>
+
+<div class="empty">
+    <h3>Belum ada tagihan</h3>
+</div>
+
+<?php } ?>
+
+</div>
+
+<script>
+
+function toggleAccordion(id){
+
+    let content = document.getElementById(id);
+
+    if(content.style.display==="block"){
+
+        content.style.display="none";
+
+    }else{
+
+        document.querySelectorAll(".accordion-content").forEach(function(item){
+
+            item.style.display="none";
+
+        });
+
+        content.style.display="block";
+
+    }
+
+}
+
+function copyText(text){
+
+    navigator.clipboard.writeText(text);
+
+    showToast("Nomor berhasil disalin");
+
+}
+
+function showToast(message){
+
+    let toast=document.createElement("div");
+
+    toast.innerHTML='<i class="bi bi-check-circle-fill"></i> '+message;
+
+    toast.style.position="fixed";
+    toast.style.bottom="30px";
+    toast.style.right="30px";
+    toast.style.background="#2563eb";
+    toast.style.color="#fff";
+    toast.style.padding="14px 22px";
+    toast.style.borderRadius="12px";
+    toast.style.boxShadow="0 10px 25px rgba(0,0,0,.2)";
+    toast.style.fontWeight="600";
+    toast.style.zIndex="9999";
+    toast.style.opacity="0";
+    toast.style.transition=".3s";
+
+    document.body.appendChild(toast);
+
+    setTimeout(function(){
+
+        toast.style.opacity="1";
+
+    },100);
+
+    setTimeout(function(){
+
+        toast.style.opacity="0";
+
+        setTimeout(function(){
+
+            toast.remove();
+
+        },300);
+
+    },2000);
+
+}
+
+</script>
 
 </body>
 </html>

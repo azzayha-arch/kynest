@@ -158,3 +158,48 @@ table tr:hover{
 h1{
     margin-bottom:20px;
 }
+.payment-tabs{
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+}
+
+.tab-btn{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#eef2ff;
+    color:#2563eb;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.tab-btn.active{
+    background:#2563eb;
+    color:white;
+}
+
+.payment-method{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    padding:15px;
+}
+
+.payment-item{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.payment-item:last-child{
+    border-bottom:none;
+}
+
+.upload-box{
+    margin-top:25px;
+    padding-top:20px;
+    border-top:2px dashed #d1d5db;
+}
